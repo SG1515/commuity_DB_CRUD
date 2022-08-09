@@ -139,7 +139,18 @@ public class ArticleServiceTest {
         // 수정날짜가 갱신되었다 라고 볼 수 있음
         long diffSeconds = ChronoUnit.SECONDS.between(articleDto.getModifiedDate(), LocalDateTime.now());
         assertThat(diffSeconds).isLessThanOrEqualTo(1L);
-
     }
+
+    @Test
+    public void delete() {
+        ArticleService articleService = Container.getObj(ArticleService.class);
+
+        articleService.delete(1);
+
+        ArticleDto articleDto = articleService.getArticleById(1);
+
+        assertThat(articleDto).isNull();
+    }
+
 
 }
